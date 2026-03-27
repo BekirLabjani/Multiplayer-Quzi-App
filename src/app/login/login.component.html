@@ -1,0 +1,31 @@
+    <div class="login-container">
+        <div class="login-card">
+            <header class="login-header">
+                <div class="logo-icon">?</div>
+                <h1>QuizMaster</h1>
+                <p>Bist du bereit für die nächste Challenge?</p>
+            </header>
+
+            <form class="login-form" (ngSubmit)="userLogin()">
+                <div class="input-group">
+                    <label for="email">E-Mail</label>
+                    <input type="email" [(ngModel)]="email" name="name" id="email" placeholder="deine@mail.de" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="password">Passwort</label>
+                    <input type="password" [(ngModel)]="password" name="passwort" id="password" placeholder="••••••••" required>
+                </div>
+
+                <div class="form-actions">
+                    <a href="#" class="forgot-password">Passwort vergessen?</a>
+                </div>
+
+                <button type="submit" class="btn-login">Jetzt einloggen</button>
+            </form>
+
+            <footer class="login-footer">
+                <p >Noch kein Konto? Registrieren</p> <button  class="no-acc-btn " routerLink="/sign"> Sign Up</button>
+            </footer>
+        </div>
+    </div>

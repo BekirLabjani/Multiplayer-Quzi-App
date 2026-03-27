@@ -1,0 +1,78 @@
+<div class="login-container">
+  <div class="login-card">
+    <header class="login-header">
+      <div class="logo-icon">🚀</div>
+      <h1>Konto erstellen</h1>
+      <p>Werde Teil der Quiz-Community!</p>
+    </header>
+
+    <form class="login-form" (ngSubmit)="signUp()">
+      <div class="input-group">
+        <label for="username">Username</label>
+        <input
+          type="text"
+          id="username"
+          [(ngModel)]="name"
+          name="name"
+          placeholder="QuizMaster_99"
+          required
+        />
+      </div>
+
+      <div class="avatar-grid">
+        <div
+          *ngFor="let path of avatarList"
+          (click)="selectAvatar(path)"
+          [class.selected]="selectedAvatar === path"
+          class="avatar-item"
+        >
+          <img [src]="path" alt="Avatar Icon" width="50" />
+        </div>
+      </div>
+      <div class="input-group">
+        <label for="email">E-Mail</label>
+        <input
+          type="email"
+          [(ngModel)]="email"
+          id="email"
+          name="email"
+          placeholder="deine@mail.de"
+          required
+        />
+      </div>
+
+      <div class="input-group">
+        <label for="password">Passwort</label>
+        <input
+          type="password"
+          [(ngModel)]="password"
+          id="password"
+          name="password"
+          placeholder="Mind. 8 Zeichen"
+          required
+        />
+      </div>
+
+      <div class="input-group">
+        <label for="password-confirm">Passwort wiederholen</label>
+        <input
+          type="password"
+          [(ngModel)]="repeatPassword"
+          id="password-confirm"
+          name="repeatPassword"
+          placeholder="••••••••"
+          required
+        />
+      </div>
+
+      <button type="submit" class="btn-login">Account erstellen</button>
+    </form>
+
+    <footer class="login-footer">
+      <p>
+        Hast du bereits ein Konto?
+        <button class="no-acc-btn" routerLink="/login">Login</button>
+      </p>
+    </footer>
+  </div>
+</div>

@@ -1,0 +1,34 @@
+<a href="https://www.flaticon.com/de/kostenlose-icons/hund" title="hund Icons">Hund Icons erstellt von Freepik - Flaticon</a>
+
+
+
+
+<!-- 
+<div *ngIf="showSearchDialog" class="dialog-overlay" (click)="closeInput()">
+  <div class="search-card" (click)="$event.stopPropagation()">
+    <h3>🔍 Freunde finden</h3>
+    
+    <input type="text" 
+           [(ngModel)]="searchName" 
+           placeholder="Username eingeben..."
+           name="search">
+
+    <div class="actions">
+      <button class="btn-search" (click)="searchFriend()">Suchen</button>
+      <button class="btn-cancel" (click)="closeInput()">Abbrechen</button>
+    </div>
+  </div>
+</div>
+<div class="search-results" *ngIf="searchResults.length > 0">
+  <div class="result-item" *ngFor="let result of searchResults">
+    <div class="user-info">
+      <span class="avatar">{{ result.avatar || '👤' }}</span>
+      <span class="name">{{ result.name }}</span>
+    </div>
+    <button class="btn-add" (click)="sendRequest(result.uid)">➕</button>
+  </div>
+</div>
+
+<div *ngIf="searchResults.length === 0 && searchName.length > 2" class="no-results">
+  Kein User gefunden...
+</div> -->

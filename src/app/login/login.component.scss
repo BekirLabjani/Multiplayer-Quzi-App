@@ -1,0 +1,146 @@
+// Variablen
+$primary-color: #6c5ce7;
+$secondary-color: #a29bfe;
+$bg-gradient: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
+$text-color: #2d3436;
+$white: #ffffff;
+$border-radius: 16px;
+$transition: all 0.3s ease;
+
+// Reset & Basis
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+// Layout
+.login-container {
+  display: flex; // Aktiviert Flexbox
+  justify-content: center; // Zentriert horizontal (links/rechts)
+  align-items: center; // Zentriert vertikal (oben/unten)
+  flex-direction: column;
+  min-height: 100vh; // Ganz wichtig: Der Container muss 100% der Bildschirmhöhe einnehmen
+  width: 100%;
+  background-color: #1f476e; 
+}
+
+.login-card {
+    background: $white;
+    padding: 40px;
+    border-radius: $border-radius;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    text-align: center;
+
+    .login-header {
+        margin-bottom: 30px;
+
+        .logo-icon {
+            background: $primary-color;
+            color: $white;
+            width: 60px;
+            height: 60px;
+            line-height: 60px;
+            border-radius: 50%;
+            font-size: 32px;
+            font-weight: bold;
+            margin: 0 auto 15px;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        p {
+            font-size: 14px;
+            color: lighten($text-color, 30%);
+        }
+    }
+}
+
+// Formular-Elemente
+.login-form {
+    .input-group {
+        text-align: left;
+        margin-bottom: 20px;
+
+        label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: $transition;
+
+            &:focus {
+                outline: none;
+                border-color: $primary-color;
+            }
+        }
+    }
+
+    .form-actions {
+        margin-bottom: 25px;
+        text-align: right;
+
+        .forgot-password {
+            font-size: 13px;
+            color: $primary-color;
+            text-decoration: none;
+            &:hover { text-decoration: underline; }
+        }
+    }
+
+    .btn-login {
+        width: 100%;
+        padding: 14px;
+        background: $primary-color;
+        color: $white;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: $transition;
+
+        &:hover {
+            background: darken($primary-color, 5%);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba($primary-color, 0.3);
+        }
+    }
+}
+
+.login-footer {
+    margin-top: 30px;
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+
+    a {
+        color: $primary-color;
+        font-weight: bold;
+        text-decoration: none;
+        &:hover { text-decoration: underline; }
+    }
+}
+
+.no-acc-btn {
+    width: 100px;
+    height: 30px;
+    background-color: $primary-color;
+    color: white;
+    border-radius: 5px;
+    border: none;
+}

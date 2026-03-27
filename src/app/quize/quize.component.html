@@ -1,0 +1,74 @@
+<div class="game-arena" id="quiz-display">
+  <header class="player-hud">
+    <div class="personal-info">
+      <div class="avatar-circle">🦊</div>
+      <div class="score-wrapper">
+        <span class="label">Deine Punkte</span>
+        <span class="current-score" id="myScore">1,250</span>
+      </div>
+    </div>
+
+    <div class="timer-container">
+      <svg class="timer-svg">
+        <circle r="20" cx="25" cy="25"></circle>
+      </svg>
+      <span class="seconds">15</span>
+    </div>
+
+    <div class="streak-badge">🔥 3x Combo</div>
+  </header>
+
+  <aside class="opponents-bar">
+    <div class="timer-small">
+      <span class="time">{{ timeLeft }}</span>
+      <svg>
+        <circle class="bg" cx="50%" cy="50%" r="14"></circle>
+        <circle
+          class="progress"
+          cx="50%"
+          cy="50%"
+          r="14"
+          [style.stroke-dashoffset]="strokeOffset"
+        ></circle>
+      </svg>
+    </div>
+    <div class="opponent">
+      <div class="opp-avatar">🐼</div>
+      <div class="status-dot thinking"></div>
+    </div>
+    <div class="opponent">
+      <div class="opp-avatar">🐯</div>
+      <div class="status-dot ready"></div>
+    </div>
+    <div class="opponent">
+      <div class="opp-avatar">🐸</div>
+      <div class="status-dot thinking"></div>
+    </div>
+  </aside>
+
+  <main class="question-container">
+    <div class="question-header">
+      <span class="q-number">Frage {{ currentQuestionIndex + 1 }}/15</span>
+      @if (questions && questions[currentQuestionIndex]) {
+        <h2>{{ questions[currentQuestionIndex].question }}</h2>
+      } @else {
+        <p>Lade Fragen...</p>
+      }
+    </div>
+
+    <div class="answers-grid">
+      @for (ans of questions[currentQuestionIndex].options; track $index) {
+        <button
+          [disabled]="timeLeft === 0"
+          (click)="answers(ans)"
+          class="answer-card"
+          [attr.data-key]="['A', 'B', 'C', 'D'][$index]"
+          id="btn"
+        >
+          <span class="key">{{ ["A", "B", "C", "D"][$index] }}</span>
+          <span class="text">{{ ans }}</span>
+        </button>
+      }
+    </div>
+  </main>
+</div>

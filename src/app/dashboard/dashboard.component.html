@@ -1,0 +1,174 @@
+<div class="dashboard-container">
+  <header class="dashboard-header">
+    <div class="profile-section">
+      <div class="avatar-large"><img [src]="avatar" alt="" /></div>
+      <div class="user-meta">
+        <h2>Willkommen, {{ userName || "Keiner Online" }}!</h2>
+        <div class="level-badge">Level {{ lvl }}</div>
+        <div class="online"></div>
+      </div>
+    </div>
+    <div class="currency-display">
+      <span class="coins">💎 {{ coins }}</span>
+    </div>
+  </header>
+
+  <section class="invite-banner">
+    <div class="invite-content">
+      <h3>Fordere deine Freunde heraus!</h3>
+      <p>Lade Freunde ein und erhalte 50 💎 pro Anmeldung.</p>
+      <div class="invite-controls">
+        <div class="share-code">CODE: <span>QUIZ-2026</span></div>
+        <button class="btn-invite">Freunde einladen</button>
+      </div>
+    </div>
+    <div class="invite-illustration">✉️</div>
+  </section>
+
+  <main class="game-modes">
+    <div class="mode-card primary">
+      <div class="mode-icon">⚔️</div>
+      <h4>Schnelles Spiel</h4>
+      <p>Tritt gegen 3 zufällige Gegner an.</p>
+      <button class="btn-play">Jetzt Starten</button>
+    </div>
+    <div class="mode-card primary">
+      <div class="mode-icon">⚔️</div>
+      <h4>Schnelles Spiel</h4>
+      <p>Spiele Alleine nur zum Testen</p>
+      <button class="btn-play" (click)="startQuize()">Solo Starten</button>
+    </div>
+
+    <div class="mode-card secondary">
+      <div class="mode-icon">🏆</div>
+      <h4>Turnier</h4>
+      <p>Gewinne den wöchentlichen Pokal.</p>
+      <button class="btn-play">Teilnehmen</button>
+    </div>
+
+    <div class="mode-card secondary">
+      <div class="mode-icon">
+        <img src="/assets/img/dshIcon/addFriends.svg" alt="" />
+      </div>
+      <h4>Freundschafts anfrage</h4>
+      <p>Lade deine Freunde ein</p>
+      <button (click)="openInput()" class="btn-play">Freunde suchen</button>
+    </div>
+  </main>
+
+  <footer class="dashboard-footer">
+    <div class="mini-stats">
+      <div class="stat"><span>Win Rate</span><strong>65%</strong></div>
+      <div class="stat"><span>Rank</span><strong>#142</strong></div>
+    </div>
+    <div class="message-container" (click)="openRequests()">
+      @if (incomingRequests.length > 0) {
+        <img
+          src="/assets/img/dshIcon/massage.svg"
+          alt="Neue Anfrage"
+          class="pulse"
+        />
+        <span class="notification-badge">{{ incomingRequests.length }}</span>
+      } @else {
+        <img src="/assets/img/dshIcon/messageOpen.svg" alt="Keine Post" />
+      }
+    </div>
+    <div class="online-friends-container">
+      @if (onlineFriends.length > 0) {
+        <p>
+          {{ onlineFriends.length }}
+          {{ onlineFriends.length === 1 ? "Freund" : "Freunde" }} online
+        </p>
+
+        <div class="online-avatars">
+          <span *ngFor="let friend of onlineFriends" [title]="friend.name">
+            @if (friend.avatar && friend.avatar.includes("/")) {
+              <img
+                [src]="friend.avatar"
+                class="mini-avatar-footer"
+                alt="friend"
+              />
+            } @else {
+              {{ friend.avatar || "👤" }}
+            }
+          </span>
+        </div>
+      } @else {
+        <p class="no-friends-text">Momentan keiner online</p>
+      }
+    </div>
+  </footer>
+</div>
+<div *ngIf="showSearchDialog" class="dialog-overlay" (click)="closeInput()">
+  <div class="search-card" (click)="$event.stopPropagation()">
+    <h3>🔍 Freunde finden</h3>
+
+    <input
+      type="text"
+      [(ngModel)]="searchName"
+      placeholder="Username eingeben..."
+      name="search"
+    />
+
+    <div class="search-results-list" *ngIf="searchResults.length > 0">
+      <div class="result-item" *ngFor="let result of searchResults">
+        <div class="user-info">
+          <div class="avatar-container">
+            @if (result.avatar) {
+              <img [src]="result.avatar" class="avatar-img" alt="Avatar" />
+            } @else {
+              <span class="avatar-placeholder">👤</span>
+            }
+          </div>
+          <span class="user-name">{{ result.name }}</span>
+        </div>
+        <button class="btn-add-friend" (click)="sendRequest(result.uid)">
+          ➕
+        </button>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn-search" (click)="searchFriend()">Suchen</button>
+      <button class="btn-cancel" (click)="closeInput()">Abbrechen</button>
+    </div>
+  </div>
+</div>
+<div
+  *ngIf="showRequestsDialog"
+  class="dialog-overlay"
+  (click)="showRequestsDialog = false"
+>
+  <div class="search-card" (click)="$event.stopPropagation()">
+    <h3>📩 Freundschaftsanfragen</h3>
+
+    <div class="request-list">
+      @for (req of incomingRequests; track req.requestId) {
+        <div class="request-item">
+          <div class="user-info">
+            <img
+              [src]="req.fromAvatar || 'assets/img/default.png'"
+              class="mini-avatar"
+            />
+            <span
+              ><strong>{{ req.fromName }}</strong> möchte dein Freund
+              sein!</span
+            >
+          </div>
+          <div class="actions">
+            <button class="btn-accept" (click)="acceptFriend(req)">✔</button>
+            <button class="btn-decline" (click)="declineFriend(req.requestId)">
+              ✖
+            </button>
+          </div>
+        </div>
+      } @empty {
+        <p class="empty-state">Dein Postfach ist leer...</p>
+      }
+    </div>
+
+    <button class="btn-cancel" (click)="showRequestsDialog = false">
+      Schließen
+    </button>
+  </div>
+</div>

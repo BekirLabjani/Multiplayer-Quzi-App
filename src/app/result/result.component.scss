@@ -1,0 +1,135 @@
+// Farben für die Ränge
+$gold: #f1c40f;
+$silver: #bdc3c7;
+$bronze: #cd7f32;
+
+.result-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85); // Abdunkeln des Hintergrunds
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+}
+
+.result-card {
+    background: white;
+    color: #2d3436;
+    width: 90%;
+    max-width: 600px;
+    padding: 40px;
+    border-radius: 30px;
+    text-align: center;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    animation: slideUp 0.5s ease-out;
+}
+
+// Stats Sektion
+.personal-stats {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 30px 0;
+
+    .stat-box {
+        background: #f1f2f6;
+        padding: 15px 25px;
+        border-radius: 15px;
+        flex: 1;
+
+        .label { display: block; font-size: 12px; font-weight: bold; color: #7f8c8d; }
+        .value { font-size: 20px; font-weight: 900; color: #4834d4; }
+    }
+}
+
+// Podium Logik
+.podium-container {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    height: 250px;
+    margin-top: 50px;
+    gap: 10px;
+}
+
+.podium-step {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    border-radius: 15px 15px 0 0;
+    animation: growUp 1s ease-out;
+
+    .player-avatar { font-size: 30px; margin-bottom: 10px; }
+    .player-name { font-size: 14px; font-weight: bold; margin-bottom: 5px; }
+    .final-score { font-size: 16px; font-weight: 900; color: white; margin-bottom: 10px; }
+
+    .rank-box {
+        width: 30px;
+        height: 30px;
+        background: rgba(255,255,255,0.3);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        color: white;
+    }
+
+    // Spezifische Höhen & Farben
+    &.gold {
+        height: 100%;
+        background: linear-gradient(to top, darken($gold, 10%), $gold);
+        .crown { position: absolute; top: -35px; font-size: 30px; animation: bounce 2s infinite; }
+    }
+    &.silver {
+        height: 75%;
+        background: linear-gradient(to top, darken($silver, 10%), $silver);
+    }
+    &.bronze {
+        height: 55%;
+        background: linear-gradient(to top, darken($bronze, 10%), $bronze);
+    }
+}
+
+// Footer Buttons
+.result-footer {
+    margin-top: 40px;
+    display: flex;
+    gap: 15px;
+
+    button {
+        flex: 1;
+        padding: 15px;
+        border: none;
+        border-radius: 12px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .btn-restart { background: #4834d4; color: white; &:hover { transform: scale(1.05); } }
+    .btn-exit { background: #dfe6e9; color: #2d3436; }
+}
+
+// Animationen
+@keyframes growUp {
+    from { height: 0; opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from { transform: translateY(50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}

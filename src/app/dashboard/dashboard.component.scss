@@ -1,0 +1,390 @@
+$dashboard-bg: #1e272e;
+$card-bg: rgba(255, 255, 255, 0.05);
+$primary-color: #6c5ce7;
+$accent-color: #00cec9;
+$invite-gradient: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
+
+.dfflex {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.dashboard-container {
+  max-width: 500px;
+  margin: 0 auto;
+  background: $dashboard-bg;
+  min-height: 100dvh;
+  padding: 20px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+// Profile Header
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .profile-section {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    .avatar-large {
+      width: 60px;
+      height: 60px;
+      background: $primary-color;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      box-shadow: 0 0 20px rgba($primary-color, 0.4);
+    }
+
+    h2 {
+      font-size: 1.1rem;
+    }
+    .level-badge {
+      display: inline-block;
+      background: $accent-color;
+      color: $dashboard-bg;
+      font-size: 0.7rem;
+      font-weight: 900;
+      padding: 2px 8px;
+      border-radius: 5px;
+      text-transform: uppercase;
+    }
+  }
+}
+
+// --- INVITE BANNER ---
+.invite-banner {
+  background: $invite-gradient;
+  border-radius: 20px;
+  padding: 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+
+  .invite-content {
+    z-index: 2;
+    h3 {
+      font-size: 1.2rem;
+      margin-bottom: 5px;
+    }
+    p {
+      font-size: 0.8rem;
+      opacity: 0.9;
+      margin-bottom: 15px;
+    }
+  }
+
+  .invite-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .share-code {
+      background: rgba(0, 0, 0, 0.2);
+      padding: 5px 12px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      span {
+        font-weight: bold;
+        color: $accent-color;
+      }
+    }
+
+    .btn-invite {
+      background: white;
+      color: $primary-color;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+      &:hover {
+        transform: scale(1.05);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+    }
+  }
+
+  .invite-illustration {
+    font-size: 4rem;
+    opacity: 0.2;
+    position: absolute;
+    right: -10px;
+    bottom: -10px;
+    transform: rotate(-15deg);
+  }
+}
+
+// Game Modes Grid
+.game-modes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+
+  .mode-card {
+    background: $card-bg;
+    padding: 20px;
+    border-radius: 20px;
+    text-align: center;
+    min-height: 202px;
+    max-height: 202px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+
+    .mode-icon {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+    h4 {
+      margin-bottom: 5px;
+    }
+    p {
+      font-size: 0.7rem;
+      color: #999;
+      margin-bottom: 15px;
+    }
+
+    .btn-play {
+      width: 100%;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+      padding: 8px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      &:hover {
+        background: white;
+        color: $dashboard-bg;
+      }
+    }
+
+    &.primary {
+      border-color: $primary-color;
+    }
+  }
+}
+
+// Footer
+.dashboard-footer {
+  margin-top: auto;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 15px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .mini-stats {
+    display: flex;
+    gap: 15px;
+    .stat {
+      span {
+        display: block;
+        font-size: 0.6rem;
+        color: #777;
+        text-transform: uppercase;
+      }
+      strong {
+        font-size: 1rem;
+        color: $accent-color;
+      }
+    }
+  }
+
+  .friends-online {
+    text-align: right;
+    p {
+      font-size: 0.7rem;
+      margin-bottom: 5px;
+      color: #999;
+    }
+    .online-avatars span {
+      margin-left: -8px;
+      border: 2px solid $dashboard-bg;
+      border-radius: 50%;
+      display: inline-block;
+      background: #333;
+    }
+  }
+}
+.online {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid #1e272e;
+  z-index: 2;
+}
+
+// Der dunkle Hintergrund (Overlay)
+.dialog-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6); // Halbtransparent
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(5px); // Schicker Unschärfe-Effekt
+
+  // Animation für das Erscheinen
+  animation: fadeIn 0.3s ease-out;
+}
+
+// Das eigentliche Fenster
+.search-card {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2rem;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  text-align: center;
+
+  // Animation: Es kommt von unten "geflogen"
+  animation: slideUp 0.4s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+
+  h3 {
+    color: white;
+    margin-bottom: 1.5rem;
+  }
+
+  input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    outline: none;
+    &:focus {
+      border-color: #7c4dff;
+    }
+  }
+  > .actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+  }
+}
+.btn-search,
+.btn-cancel {
+  width: 100px;
+  height: 25px;
+  border-radius: 5px;
+  border: none;
+}
+// Die "Regisseure" der Animation (Keyframes)
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.search-results-list {
+  max-height: 200px; // Damit der Dialog nicht unendlich lang wird
+  overflow-y: auto;
+  margin-top: 15px;
+  background: #2a2a2a; // Dunkler Hintergrund für die Liste
+  border-radius: 8px;
+  margin-bottom: 20px;
+
+  .result-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #3d3d3d;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: white;
+    }
+
+    .btn-add-friend {
+      background: #4caf50;
+      border: none;
+      color: white;
+      border-radius: 4px;
+      padding: 5px 10px;
+      cursor: pointer;
+      transition: 0.2s;
+
+      &:hover {
+        background: #45a049;
+      }
+    }
+  }
+  .avatar-container {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  overflow: hidden; // Schneidet alles ab, was über den Kreis steht
+  background: #3d3d3d;
+
+  .avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; // Verhindert, dass das Bild gequetscht wird
+  }
+
+  .avatar-placeholder {
+    font-size: 20px;
+  }
+}
+}
+.online-friends-container {
+  .no-friends-text {
+    font-size: 12px;
+    color: #888; // Dezentes Grau
+    font-style: italic;
+    margin-top: 5px;
+  }
+
+  .mini-avatar-footer {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    vertical-align: middle;
+    margin-right: 5px;
+    border: 1px solid #444;
+  }
+}
