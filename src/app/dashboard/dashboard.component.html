@@ -1,7 +1,7 @@
 <div class="dashboard-container">
   <header class="dashboard-header">
     <div class="profile-section">
-      <div class="avatar-large"><img [src]="avatar" alt="" /></div>
+      <div class="avatar-large"><img class="avatar-img" [src]="avatar" alt="" /></div>
       <div class="user-meta">
         <h2>Willkommen, {{ userName || "Keiner Online" }}!</h2>
         <div class="level-badge">Level {{ lvl }}</div>
@@ -76,11 +76,10 @@
     <div class="online-friends-container">
       @if (onlineFriends.length > 0) {
         <p>
-          {{ onlineFriends.length }}
           {{ onlineFriends.length === 1 ? "Freund" : "Freunde" }} online
         </p>
 
-        <div class="online-avatars">
+        <div (click)="openListFriends()" class="online-avatars">
           <span *ngFor="let friend of onlineFriends" [title]="friend.name">
             @if (friend.avatar && friend.avatar.includes("/")) {
               <img
@@ -170,5 +169,29 @@
     <button class="btn-cancel" (click)="showRequestsDialog = false">
       Schließen
     </button>
+  </div>
+</div>
+
+<div *ngIf="showfriendsList" class="dialog-overlay" (click)="closeFriendsList()">
+  <div class="search-card" (click)="$event.stopPropagation()">
+    <h3>🟢 Freunde Online ({{ onlineFriends.length }})</h3>
+
+    <div class="search-results-list">
+      <div class="result-item" *ngFor="let friend of onlineFriends">
+        <div class="user-info">
+          <div class="avatar-container">
+            @if (friend.avatar) {
+              <img [src]="friend.avatar" class="avatar-img" alt="Avatar" />
+            } @else {
+              <span class="avatar-placeholder">👤</span>
+            }
+          </div>
+          <span class="user-name">{{ friend.name }}</span>
+        </div>
+        <button class="btn-play" style="padding: 5px 10px; font-size: 0.8rem;">Spielen</button>
+      </div>
+    </div>
+
+    <button class="btn-cancel" (click)="closeFriendsList()">Schließen</button>
   </div>
 </div>

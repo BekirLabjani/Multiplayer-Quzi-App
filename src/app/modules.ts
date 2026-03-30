@@ -15,3 +15,16 @@ export interface QuizQuestion {
   answer: string;
 }
 
+export interface Friend extends QuizUser {
+  request: string;
+  avatar: String;
+  friendUid: string;
+}
+
+export interface FriendRequest {
+  requestId: string;
+  fromUid?: string;
+  fromName?: string;
+  fromAvatar?: string;
+  status?: string;
+}

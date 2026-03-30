@@ -60,6 +60,9 @@ $invite-gradient: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
     }
   }
 }
+.avatar-img {
+  width: 100%;
+}
 
 // --- INVITE BANNER ---
 .invite-banner {
@@ -219,6 +222,10 @@ $invite-gradient: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
       background: #333;
     }
   }
+}
+.online-avatars {
+  display: flex;
+  justify-content: end;
 }
 .online {
   width: 14px;
@@ -387,4 +394,19 @@ $invite-gradient: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
     margin-right: 5px;
     border: 1px solid #444;
   }
+}
+.overflow-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px; /* Anpassen an Ihre Avatar-Größe */
+  height: 30px;
+  border-radius: 50%;
+  background-color: #2c3e50; /* Dunkler Hintergrund */
+  color: #1abc9c; /* Ziffernfarbe, passend zu Ihrem '65%' Cyan */
+  font-weight: bold;
+  font-size: 12px;
+  border: 2px solid #1a252f; /* Rand für saubere Überlappung */
+  margin-left: -10px; /* Erzeugt den Überlappungs-Effekt */
+  z-index: 10;
 }
