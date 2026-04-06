@@ -46,6 +46,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   incomingRequests: FriendRequest[] = [];
   showRequestsDialog: boolean = false; // Schalter für das Pop-up
   showfriendsList: boolean = false;
+  errorMessage: string = "";
 
   constructor(
     private firestore: Firestore,
@@ -156,31 +157,56 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.showSearchDialog = false;
     this.searchName = ''; // Feld leeren beim Schließen
   }
+async searchFriend() {
+  const searchTerm = this.searchName.trim();
 
-  async searchFriend() {
-    if (this.searchName.length < 3 || !this.searchName.trim()) {
-      console.warn('Suche abgebrochen: Name zu kurz');
-      this.searchResults = [];
-      return;
-    }
+  // 1. Der Türsteher (Check vorab)
+  if (searchTerm.length < 3) {
+    this.searchResults = [];
+    this.errorMessage = ''; // Fehler zurücksetzen
+    return;
+  }
 
-    const searchLower = this.searchName.toLowerCase();
+  // 2. Der Sicherheitskäfig beginnt
+  try {
+    this.isLoading = true;
+    this.errorMessage = ''; // Neuen Versuch starten
+
+    const searchLower = searchTerm.toLowerCase();
     const userQuery = query(
       collection(this.firestore, 'users'),
       where('name_lowerCase', '>=', searchLower),
       where('name_lowerCase', '<=', searchLower + '\uf8ff'),
     );
+
     const querySnapshot = await getDocs(userQuery);
-    this.searchResults = [];
+    
+    // Lokale Variable zum Sammeln (verhindert Flackern in der UI)
+    const tempResults: QuizUser[] = [];
+
     querySnapshot.forEach((docSnap) => {
       const data = docSnap.data() as QuizUser;
       const userWithId = { ...data, uid: docSnap.id };
+
+      // Sich selbst nicht in der Suche anzeigen
       if (userWithId.uid !== this.userId) {
-        this.searchResults.push(userWithId);
+        tempResults.push(userWithId);
       }
     });
-  }
 
+    // Erst am Ende das globale Array austauschen
+    this.searchResults = tempResults;
+
+  } catch (error) {
+    // 3. Die Notbremse (Falls Internet weg oder Firebase-Fehler)
+    console.error('Suche fehlgeschlagen:', error);
+    this.searchResults = [];
+    this.errorMessage = 'Suche aktuell nicht möglich. Prüfe deine Verbindung.';
+  } finally {
+    // 4. Der Aufräumer (Passiert IMMER)
+    this.isLoading = false;
+  }
+}
   async sendRequest(targetUid: string) {
     try {
       const requestDocRef = doc(
